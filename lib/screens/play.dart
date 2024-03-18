@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:starlorn/models/CardGrid.dart';
 import '../global/Globals.dart';
+import '../models/Mechanics.dart';
 import 'dart:async';
 
 
@@ -25,7 +27,9 @@ class PlayStage extends StatefulWidget {
 
 
 class _PlayStageState extends State<PlayStage> {
-  
+  late Timer timer;
+  late Game game;
+  late Duration duration;
 
   @override
   Widget build(BuildContext context) {
@@ -62,18 +66,18 @@ class _PlayStageState extends State<PlayStage> {
                   Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: <Widget>[
-                                      Padding(
-                    padding: const EdgeInsets.only(right: 12.0),
-                    child: 
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                      Text('Attempts Left: $attempts', style: uiText),
-                      Text('Multiplier: $mult''x', style: uiText),
-                      Text('Unique pairs left: $uniquePairs''/$totalUnique', style: uiText),
-                      ]
+                    Padding(
+                      padding: const EdgeInsets.only(right: 12.0),
+                      child: 
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                        Text('Attempts Left: $attempts', style: uiText),
+                        Text('Multiplier: $mult''x', style: uiText),
+                        Text('Unique pairs left: $uniquePairs''/$totalUnique', style: uiText),
+                        ]
+                      ),
                     ),
-                                      ),
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -111,15 +115,38 @@ class _PlayStageState extends State<PlayStage> {
                   ),
                 ]
               ),
-              ]
+            ]
           ),
+
+
               Container(
                 margin: EdgeInsets.only(top:screenSize.height*0.0095, bottom: screenSize.height*0.0095),
+                padding: EdgeInsets.all(screenSize.width * 0.05),
                 height: screenSize.height * .7,
                 width: screenSize.width * .9,
-                decoration: const BoxDecoration(
+                decoration: 
+                  const BoxDecoration(
                   color: Color.fromRGBO(255, 238, 217, 1),
                   borderRadius: BorderRadius.all(Radius.circular(15))
+                ),
+                
+                child: 
+                Center( 
+                  child: 
+                     GridView.count(
+                      crossAxisCount: 4,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      children: List.generate(game.cards.length, (index) {
+                        return CardGrid(
+                          index: index,
+                          card: game.cards[index],
+                          onCardPressed: game.onTapped,
+                        );
+                      }
+                      )
+                    )
+                  
                 ),
               ),
 
@@ -157,6 +184,7 @@ class _PlayStageState extends State<PlayStage> {
   @override
   void initState() {
       super.initState();
+      game = Game(4);
     _stopwatch = Stopwatch();
     _timer = Timer.periodic(const Duration(milliseconds: 100), _updateTimer);
     _stopwatch.start();
