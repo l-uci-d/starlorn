@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../screens/play.dart';
 import 'Cards.dart';
 import 'dart:math';
 
@@ -11,6 +11,7 @@ class Game {
 
   List<Cards> cards = [];
   bool isGameOver = false;
+  bool isGameWon = false;
 
   void generateCards() {
     cards = [];
@@ -37,13 +38,16 @@ List<Cards> _createCards(String path, int cardValue) {
 void onTapped(int index){
   cards[index].state = CardState.selected;
     final List<int> visibleCardIndexes = _getVisibleCardIndexes();
-    if (visibleCardIndexes.length == 2) {
+    if (visibleCardIndexes.length %2 == 0) {
       final Cards card1 = cards[visibleCardIndexes[0]];
       final Cards card2 = cards[visibleCardIndexes[1]];
       if (card1.value == card2.value) {
-        card1.state = CardState.paired;
-        card2.state = CardState.paired;
-        isGameOver = _isGameOver();
+        Future.delayed(const Duration(milliseconds: 500), () {
+          card1.state = CardState.paired;
+          card2.state = CardState.paired;
+          isGameOver = _isGameOver();
+          isGameWon = _isGameWon();
+        });
       } else {
         Future.delayed(const Duration(milliseconds: 500), () {
           if(card1.modifiers != Modifiers.Latch) {
@@ -53,7 +57,13 @@ void onTapped(int index){
           if(card2.modifiers != Modifiers.Latch) {
             card2.state = CardState.hidden;
           }
+
+          for(int index in visibleCardIndexes){
+            if(cards[index].state != CardState.paired && index%2 == 0)
+              {cards[index].state = CardState.hidden;}
+          }
         });
+       
       }
     }
   }
@@ -68,9 +78,15 @@ void onTapped(int index){
   }
 
 
-  bool _isGameOver() {
+  bool _isGameWon() {
     return cards.every((card) => card.state == CardState.paired);
   }
 
+bool _isGameOver(){
+  if (!isGameWon && attempts == 0) {
+    return true;
+  }
+  return false;
+}
 
 }
