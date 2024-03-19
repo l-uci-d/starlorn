@@ -1,6 +1,8 @@
-import 'dart:math';
+
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
 import 'package:starlorn/models/CardGrid.dart';
 import '../global/Globals.dart';
 import '../models/Mechanics.dart';
@@ -8,6 +10,7 @@ import 'dart:async';
 
 
 const double padding = 35;
+String lastPair = '';
 
 class PlayStage extends StatefulWidget {
   const PlayStage({super.key});
@@ -18,10 +21,11 @@ class PlayStage extends StatefulWidget {
 }
 
 
+
  int attempts = 9, 
  mult = 2, 
  uniquePairs = 5, 
- score = 10000, 
+ score = 0, 
  totalUnique = 5
  ;
 
@@ -30,7 +34,7 @@ class _PlayStageState extends State<PlayStage> {
   late Timer timer;
   late Game game;
   late Duration duration;
-
+ 
   @override
   Widget build(BuildContext context) {
 
@@ -78,6 +82,7 @@ class _PlayStageState extends State<PlayStage> {
                         ]
                       ),
                     ),
+
 
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -130,10 +135,11 @@ class _PlayStageState extends State<PlayStage> {
                   borderRadius: BorderRadius.all(Radius.circular(15))
                 ),
                 
-                child: 
-                Center( 
+
                   child: 
                      GridView.count(
+                      scrollDirection: Axis.vertical,
+                      childAspectRatio: 0.65,
                       crossAxisCount: 4,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
@@ -142,25 +148,29 @@ class _PlayStageState extends State<PlayStage> {
                           index: index,
                           card: game.cards[index],
                           onCardPressed: game.onTapped,
-                        );
+                        )
+                        
+                        ;
                       }
                       )
-                    )
-                  
-                ),
-              ),
+                    ).animate().fade(duration: .5.seconds, curve: Curves.easeOut).slideY()
+                  )
+              ,
 
+        
                Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text('last pair: ', style: uiText,),
-                  Container(
-                    width: screenSize.width * 0.1,
-                    decoration: const BoxDecoration(
-                    color: Color.fromRGBO(255, 238, 217, 1),
-                    ),
+                  Padding(
+                    padding: EdgeInsets.only(right: screenSize.width *0.01),
+                    child: Text('last pair: ', style: uiText,)),
+                  if(lastPair != '')
+                  Image.asset(
+                      'assets/cards/Values/$lastPair.png', 
+                      width: screenSize.width * 0.15 ,
+                      ),
 
-                  ),
+                  
                   SizedBox(width: screenSize.width*.23),
 
                   Text('time: ', style: uiText),
@@ -184,7 +194,12 @@ class _PlayStageState extends State<PlayStage> {
   @override
   void initState() {
       super.initState();
-      game = Game(4);
+      lastPair = '';
+      score = 0;
+      attempts = 9;                       // add dynamic values
+      game = Game(5, uniquePairs);        // add dynamic values
+      mult = 1;                           // add dynamic values
+
     _stopwatch = Stopwatch();
     _timer = Timer.periodic(const Duration(milliseconds: 100), _updateTimer);
     _stopwatch.start();

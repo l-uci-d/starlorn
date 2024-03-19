@@ -1,26 +1,60 @@
-import 'package:flutter/material.dart';
+
+
 import '../screens/play.dart';
 import 'Cards.dart';
 import 'dart:math';
 
+Random random = Random();
 class Game {
-  Game(this.gridSize) {
+  Game(this.gridSize, this.unique) {
     generateCards();
   }
   final int gridSize;
+  final int unique;
 
   List<Cards> cards = [];
+  List<int> values =[];
+  List<Cards> forProphet = [];
   bool isGameOver = false;
   bool isGameWon = false;
+  bool cascading = false;
+
+  int oasis = 0;
+
 
   void generateCards() {
+    
+    Random random = Random();
     cards = [];
-    for (int i = 1; i < (gridSize * gridSize / 2) + 1; i++) {
-      final String path = '$i';
-      final cardValue = i + 1;
+    values = [];
+    forProphet = [];
 
+    for(int u = 1; u <= unique; u++){
+      values.add(random.nextInt(56) + 1);
+    }
+    values.shuffle();
+
+    int index = 0;
+    for (int i = 1; i < (gridSize * gridSize / 2) + 1; i++) {
+      
+      final cardValue = values[index];
+      final String path = '$cardValue';
       final List<Cards> newCards = _createCards(path, cardValue);
+      for(var card in newCards){
+          int randomChance = Random().nextInt(100);
+        if (randomChance < 20) {
+            int randomIndex = Random().nextInt(nonBaseModifiers.length);
+            card.setModifier(nonBaseModifiers[randomIndex]);
+            if(powerDowns.contains(card.modifiers))
+              {
+                forProphet.add(card);
+              }
+            print(card.modifiers);
+        }
+      }
       cards.addAll(newCards);
+
+      index = (index + 1) % values.length;
     }
     cards.shuffle(Random());
   }
@@ -31,36 +65,70 @@ List<Cards> _createCards(String path, int cardValue) {
       (index) => Cards(
         value: cardValue,
         spritePath: path,
+
       ),
     );
   }
 
 void onTapped(int index){
+  bool Oasis = oasis == 0;
   cards[index].state = CardState.selected;
-    final List<int> visibleCardIndexes = _getVisibleCardIndexes();
+  if(cascading){
+    cascade(cards[index]);
+  }
+    
+    final List<int> visibleCardIndexes = _getCardIndexes(CardState.selected);
+    
     if (visibleCardIndexes.length %2 == 0) {
       final Cards card1 = cards[visibleCardIndexes[0]];
       final Cards card2 = cards[visibleCardIndexes[1]];
-      if (card1.value == card2.value) {
+
+      bool match = card1.value == card2.value;
+
+
+      if (match) {
         Future.delayed(const Duration(milliseconds: 500), () {
-          card1.state = CardState.paired;
-          card2.state = CardState.paired;
+          
+          
+
           isGameOver = _isGameOver();
           isGameWon = _isGameWon();
+
+          if(lastPair == card1.spritePath){
+            mult*=2;
+          }
+
+          lastPair = card1.spritePath;
+          forProphet.remove(card1);
+          forProphet.remove(card2);
+          
+          Mods(card1, card2, match, Oasis);
+          card1.state = CardState.paired;
+          card2.state = CardState.paired;
+
+
         });
+        
       } else {
         Future.delayed(const Duration(milliseconds: 500), () {
-          if(card1.modifiers != Modifiers.Latch) {
+
+        attempts -=1;
+          
+
+          if(card1.modifiers != Modifiers.Latch && card1.state != CardState.paired) {
             card1.state = CardState.hidden;
           }
 
-          if(card2.modifiers != Modifiers.Latch) {
+          if(card2.modifiers != Modifiers.Latch  || card1.modifiers == Modifiers.Latch && card2.state != CardState.paired) {
             card2.state = CardState.hidden;
           }
 
-          for(int index in visibleCardIndexes){
-            if(cards[index].state != CardState.paired && index%2 == 0)
-              {cards[index].state = CardState.hidden;}
+          for (int i = 0; i < visibleCardIndexes.length - 1; i++) {
+            if(cards[i].state != CardState.paired && i%2 == 0 && cards[i].modifiers != Modifiers.Latch)
+              {cards[i].state = CardState.hidden;
+     //         print('${cards[i].value}  hidden');
+              }
+          Mods(card1, card2, match, Oasis);
           }
         });
        
@@ -68,11 +136,139 @@ void onTapped(int index){
     }
   }
 
-  List<int> _getVisibleCardIndexes() {
+  void Mods(Cards card1, Cards card2, bool match, bool oasis){
+    Modifiers mod1 = card1.modifiers, mod2 = card2.modifiers;
+
+    attempts -= (mod1 == Modifiers.Burden ? 1 : 0) + (mod2 == Modifiers.Burden ? 1 : 0);
+
+    if(!match){
+        
+
+        if(mod1 == Modifiers.Telescope || mod2 == Modifiers.Telescope){
+          Cards telescopeCard = mod1 == Modifiers.Telescope ? card2 : card1;
+            List<int> telescopeIndexes = _getPairs(telescopeCard.value);
+            for(var x in telescopeIndexes){
+              cards[x].telescoped = true;
+            }
+        }
+
+        if(mod1 == Modifiers.Shuffler || mod2 == Modifiers.Shuffler){
+          Cards shuffler = mod1 == Modifiers.Shuffler ? card1 : card2;
+          Cards temp;
+          print('Shuffling ${shuffler.modifiers}');
+            List<int> shuffle = _getCardIndexes(CardState.hidden);
+            shuffle.shuffle();
+            print(shuffle);
+            
+            print(_getModifiedCards(Modifiers.Shuffler));
+            temp = cards[shuffle[0]];
+            cards[shuffle[0]] = shuffler;
+            shuffler = temp;
+            print(_getModifiedCards(Modifiers.Shuffler));
+
+        }
+
+        if(mod1 == Modifiers.Harbinger || mod2 == Modifiers.Harbinger){
+          List<int> indices = _getUnspecialUnpaired();
+          if(indices.isNotEmpty){
+            indices.shuffle();
+            print(indices);
+            int randomIndex = Random().nextInt(powerDowns.length);
+            cards[indices[0]].setModifier(powerDowns[randomIndex]);
+            randomIndex = Random().nextInt(powerDowns.length);
+            cards[indices[1]].setModifier(powerDowns[randomIndex]);
+
+          }
+          
+
+
+        }
+
+
+
+    }
+
+
+    else{
+        attempts += (mod1 == Modifiers.Bounty ? 3 : 0) + (mod2 == Modifiers.Bounty ? 3 : 0);
+
+        if(mod1 == Modifiers.Prophet || mod2 == Modifiers.Prophet && forProphet.isNotEmpty){
+          forProphet.shuffle();
+            forProphet[0].propheted = true;
+        }
+
+        if(mod1 == Modifiers.Cascade || mod2 == Modifiers.Cascade){
+          
+          cascade(null);
+          print(cascading);
+        }
+
+
+
+      }
+      
+  }
+
+  
+
+List<int> _getUnspecialUnpaired( ) {
     return cards
         .asMap()
         .entries
-        .where((entry) => entry.value.state == CardState.selected)
+        .where((entry) => entry.value.state == CardState.hidden
+        && !nonBaseModifiers.contains(entry.value.modifiers) 
+        )
+
+
+        .map((entry) => entry.key)
+        .toList();
+  }
+
+
+  void cascade(Cards? card){
+      if(!cascading){
+          cascading = true;
+          return;
+      }
+      else{
+          List<int> toCascadeIndexes = _getPairs(card!.value);
+          toCascadeIndexes.shuffle();
+          print(toCascadeIndexes);
+          cascading = false;
+          onTapped(toCascadeIndexes[0]);
+          
+      }
+  }
+
+  List<int> _getPairs(int value) {
+    return cards
+        .asMap()
+        .entries
+        .where((entry) => entry.value.state != CardState.paired && entry.value.value == value
+        && entry.value.state != CardState.selected
+        )
+
+
+        .map((entry) => entry.key)
+        .toList();
+  }
+
+    List<int> _getModifiedCards(Modifiers state) {
+    return cards
+        .asMap()
+        .entries
+        .where((entry) => entry.value.modifiers == state)
+        .map((entry) => entry.key)
+        .toList();
+  }
+
+  
+
+  List<int> _getCardIndexes(CardState state) {
+    return cards
+        .asMap()
+        .entries
+        .where((entry) => entry.value.state == state)
         .map((entry) => entry.key)
         .toList();
   }
@@ -80,10 +276,12 @@ void onTapped(int index){
 
   bool _isGameWon() {
     return cards.every((card) => card.state == CardState.paired);
+    
   }
 
 bool _isGameOver(){
   if (!isGameWon && attempts == 0) {
+    print('GameOVER');
     return true;
   }
   return false;
