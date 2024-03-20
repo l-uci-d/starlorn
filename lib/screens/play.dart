@@ -22,12 +22,14 @@ class PlayStage extends StatefulWidget {
 
 
 
- int attempts = 9, 
- mult = 2, 
- uniquePairs = 5, 
+ int attempts = 0, 
+ mult = 0, 
+ uniquePairs = 0, 
  score = 0, 
- totalUnique = 5
+ totalUnique = 0,
+ rowCount = 0
  ;
+ double aspectRatio = 0.0;
 
 
 class _PlayStageState extends State<PlayStage> {
@@ -125,6 +127,7 @@ class _PlayStageState extends State<PlayStage> {
 
 
               Container(
+                alignment: Alignment.center,
                 margin: EdgeInsets.only(top:screenSize.height*0.0095, bottom: screenSize.height*0.0095),
                 padding: EdgeInsets.all(screenSize.width * 0.05),
                 height: screenSize.height * .7,
@@ -137,27 +140,34 @@ class _PlayStageState extends State<PlayStage> {
                 
 
                   child: 
-                     GridView.count(
-                      scrollDirection: Axis.vertical,
-                      childAspectRatio: 0.65,
-                      crossAxisCount: 4,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      children: List.generate(game.cards.length, (index) {
-                        return CardGrid(
-                          index: index,
-                          card: game.cards[index],
-                          onCardPressed: game.onTapped,
-                        )
-                        
-                        ;
-                      }
-                      )
-                    ).animate().fade(duration: .5.seconds, curve: Curves.easeOut).slideY()
+
+                     Center(
+
+                      child: (
+                      GridView.count(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        crossAxisCount: rowCount,
+                        scrollDirection: Axis.horizontal,
+                        childAspectRatio: aspectRatio,
+                        crossAxisSpacing: 10.0,
+                        mainAxisSpacing: 5,
+                        children: 
+                        List.generate(game.cards.length, (index) {
+                          return CardGrid(
+                            index: index,
+                            card: game.cards[index],
+                            onCardPressed: game.onTapped,
+                          );
+                        } )
+                      ).animate().fade(duration: .5.seconds, curve: Curves.easeOut).slideY()
+
+                     ),
+                    )
+                  
                   )
               ,
 
-        
                Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -167,7 +177,7 @@ class _PlayStageState extends State<PlayStage> {
                   if(lastPair != '')
                   Image.asset(
                       'assets/cards/Values/$lastPair.png', 
-                      width: screenSize.width * 0.15 ,
+                      width: screenSize.width * 0.1  ,
                       ),
 
                   
@@ -194,15 +204,22 @@ class _PlayStageState extends State<PlayStage> {
   @override
   void initState() {
       super.initState();
+      uniquePairs = 5;
       lastPair = '';
       score = 0;
       attempts = 9;                       // add dynamic values
-      game = Game(5, uniquePairs);        // add dynamic values
-      mult = 1;                           // add dynamic values
+      game = Game(16, uniquePairs);        // add dynamic values
+      mult = 1;  
+      aspectRatio = 1.45;
+      // aspectRatio = 1.855
+      rowCount = 4;
+      
+      totalUnique = 5;                         // add dynamic values
 
     _stopwatch = Stopwatch();
     _timer = Timer.periodic(const Duration(milliseconds: 100), _updateTimer);
     _stopwatch.start();
+
   }
 
   void _updateTimer(Timer timer) {

@@ -10,7 +10,7 @@ import '../global/Globals.dart';
 import 'Cards.dart';
 
 class CardGrid extends StatelessWidget{
-  CardGrid({
+  const CardGrid({
     required this.card,
     required this.index,
     required this.onCardPressed,
@@ -45,10 +45,14 @@ class CardGrid extends StatelessWidget{
                 if(card.state == CardState.hidden)
                   Stack(
                     children: <Widget>[
+                        Image.asset('assets/cards/Values/matched.png'),
                         Image.asset(
                           'assets/cards/Values/cardback.png', 
-                          fit: BoxFit.fitWidth
-                        ),
+                          fit: BoxFit.contain
+                        )
+                        
+                        ,
+
                         if(card.propheted)
                         Animate(
                           effects: 
@@ -57,7 +61,7 @@ class CardGrid extends StatelessWidget{
                               duration: 0.75.seconds),
 
                             ScaleEffect(duration: 0.75.seconds, begin: const Offset(5, 5), 
-                              end: const Offset(1, 1), curve: Curves.easeInExpo),
+                              end: const Offset(1, 1), curve: Curves.bounceOut),
                         ],
                           child:
                           Transform.scale(
@@ -67,7 +71,8 @@ class CardGrid extends StatelessWidget{
                               'assets/cards/Values/propheted.png', 
                             )
                           )
-                        ),
+                        )
+                        ,
 
                         if(card.telescoped)
                         Animate(
@@ -89,37 +94,43 @@ class CardGrid extends StatelessWidget{
                             )
                           )
                         )
-                        
-                        
-
-                      
                     ]
                   )
-                  
 
 
 
                 else if(card.state == CardState.selected)
                 Stack(
                   children: <Widget>[
-                      
+                    Image.asset('assets/cards/Values/matched.png'),
+                    
                     Image.asset(
                       'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png', 
                       fit: BoxFit.fitHeight ,
-                    ),
+                    ).animate().boxShadow(begin:BoxShadowEffect.neutralValue, duration: 100.milliseconds)
+                    ,
 
                     if(card.modifiers!= Modifiers.Concealed)
                         Positioned.fill(
                         child: Align(
                         alignment: Alignment.center,
                         child:
+                        Transform.scale(
+                          scale: 0.75,
+                          child: (
+
                         Image.asset(
                             'assets/cards/Values/${card.spritePath}.png', 
                             fit: BoxFit.fitWidth
                           )
+                          )
                           ,)
                         )
-                  ]
+                        )
+                  ].animate().flipH(begin: 1.0, end:2.0,
+                  duration:100.milliseconds).slideY(duration: 100.milliseconds, begin:0, end: -0.3)
+                  
+                  
                 )
 
                 else if(card.state == CardState.paired)

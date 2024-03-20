@@ -6,14 +6,15 @@ import 'dart:math';
 
 Random random = Random();
 class Game {
-  Game(this.gridSize, this.unique) {
+  Game(this.cardAmt, this.unique) {
     generateCards();
   }
-  final int gridSize;
+  final int cardAmt;
   final int unique;
 
   List<Cards> cards = [];
-  List<int> values =[];
+  List<int> values = [];
+  List<int> uniqueLeft =[];
   List<Cards> forProphet = [];
   bool isGameOver = false;
   bool isGameWon = false;
@@ -21,28 +22,26 @@ class Game {
 
   int oasis = 0;
 
-
   void generateCards() {
-    
     Random random = Random();
-    cards = [];
-    values = [];
-    forProphet = [];
 
     for(int u = 1; u <= unique; u++){
-      values.add(random.nextInt(56) + 1);
+      values.add(random.nextInt(9) + 1);
+      uniqueLeft.add(0);
     }
     values.shuffle();
+    print('values = $values');
 
     int index = 0;
-    for (int i = 1; i < (gridSize * gridSize / 2) + 1; i++) {
-      
+    for (int i = 1; i <= cardAmt/2; i++) {
       final cardValue = values[index];
+      uniqueLeft[index]+=1;
+      
       final String path = '$cardValue';
       final List<Cards> newCards = _createCards(path, cardValue);
       for(var card in newCards){
           int randomChance = Random().nextInt(100);
-        if (randomChance < 20) {
+        if (randomChance <= 35) {
             int randomIndex = Random().nextInt(nonBaseModifiers.length);
             card.setModifier(nonBaseModifiers[randomIndex]);
             if(powerDowns.contains(card.modifiers))
@@ -54,10 +53,12 @@ class Game {
       }
       cards.addAll(newCards);
 
-      index = (index + 1) % values.length;
+      index = (index + 1) % values.length; 
     }
+    print('count = $uniqueLeft');
     cards.shuffle(Random());
   }
+  
 
 
 List<Cards> _createCards(String path, int cardValue) {
@@ -65,7 +66,6 @@ List<Cards> _createCards(String path, int cardValue) {
       (index) => Cards(
         value: cardValue,
         spritePath: path,
-
       ),
     );
   }
@@ -88,8 +88,6 @@ void onTapped(int index){
 
       if (match) {
         Future.delayed(const Duration(milliseconds: 500), () {
-          
-          
 
           isGameOver = _isGameOver();
           isGameWon = _isGameWon();
@@ -97,6 +95,8 @@ void onTapped(int index){
           if(lastPair == card1.spritePath){
             mult*=2;
           }
+
+          score += (100*mult);
 
           lastPair = card1.spritePath;
           forProphet.remove(card1);
@@ -106,6 +106,7 @@ void onTapped(int index){
           card1.state = CardState.paired;
           card2.state = CardState.paired;
 
+          _updateUniqueCount(card1.value);
 
         });
         
@@ -172,35 +173,35 @@ void onTapped(int index){
           List<int> indices = _getUnspecialUnpaired();
           if(indices.isNotEmpty){
             indices.shuffle();
-            print(indices);
+            print('Harbinger: $indices');
             int randomIndex = Random().nextInt(powerDowns.length);
             cards[indices[0]].setModifier(powerDowns[randomIndex]);
             randomIndex = Random().nextInt(powerDowns.length);
             cards[indices[1]].setModifier(powerDowns[randomIndex]);
 
           }
-          
-
-
         }
-
-
-
     }
 
 
     else{
         attempts += (mod1 == Modifiers.Bounty ? 3 : 0) + (mod2 == Modifiers.Bounty ? 3 : 0);
 
-        if(mod1 == Modifiers.Prophet || mod2 == Modifiers.Prophet && forProphet.isNotEmpty){
+        if((mod1 == Modifiers.Prophet || mod2 == Modifiers.Prophet) && forProphet.isNotEmpty){
           forProphet.shuffle();
             forProphet[0].propheted = true;
         }
 
         if(mod1 == Modifiers.Cascade || mod2 == Modifiers.Cascade){
-          
-          cascade(null);
+          if(mod1 != mod2){
+            cascade(null);
           print(cascading);
+          }
+          else{
+            cascade(null);
+            cascading = true;
+          }
+          
         }
 
 
@@ -209,6 +210,14 @@ void onTapped(int index){
       
   }
 
+
+void _updateUniqueCount(int val){
+    uniqueLeft[values.indexOf(val)]--;
+    if(uniqueLeft[values.indexOf(val)] == 0){
+      uniquePairs-=1;
+    }
+    print('count = $uniqueLeft');
+}
   
 
 List<int> _getUnspecialUnpaired( ) {
