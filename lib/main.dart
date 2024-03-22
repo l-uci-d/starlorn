@@ -1,3 +1,6 @@
+import 'package:starlorn/screens/collection.dart';
+import 'package:starlorn/screens/manual.dart';
+
 import './screens/home.dart'; 
 import './screens/play.dart';
 
@@ -21,6 +24,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const HomePage(),
         '/play': (context) => const PlayStage(),
+        '/manual': (context) => const UsefulMessage(),
+        '/collection': (context) => const ProgressionGauge(),
+        
       },
     );
   }

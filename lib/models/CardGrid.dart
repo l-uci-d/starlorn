@@ -2,10 +2,12 @@
 // ignore_for_file: unused_import
 
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:starlorn/global/Animations.dart';
+import 'package:starlorn/models/Mechanics.dart';
 import '../global/Globals.dart';
 import 'Cards.dart';
 
@@ -38,20 +40,31 @@ class CardGrid extends StatelessWidget{
     
     return InkWell(
       onTap: _handleCardTap,
+      child: FloatingWidget(
+        seed: (math.Random().nextDouble() * 2.0) - 2.0,
+        duration: Duration(seconds: math.Random().nextInt(10) + 3),
+
         child: Column(
             children: <Widget>[
-              
-
                 if(card.state == CardState.hidden)
                   Stack(
                     children: <Widget>[
-                        Image.asset('assets/cards/Values/matched.png'),
-                        Image.asset(
-                          'assets/cards/Values/cardback.png', 
-                          fit: BoxFit.contain
-                        )
+                      
+                        Image.asset('assets/cards/Values/matched.png').animate().boxShadow(),
+                        //Image.asset(
                         
-                        ,
+                         // 'assets/cards/Values/cardback.png', 
+                         // fit: BoxFit.contain
+                       // ),
+                        Image.asset(
+                        'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png',
+                         // 'assets/cards/Values/cardback.png', 
+                          fit: BoxFit.contain
+                        ),
+                        Image.asset(
+                                'assets/cards/Values/${card.spritePath}.png', 
+                                fit: BoxFit.fitWidth
+                              ),
 
                         if(card.propheted)
                         Animate(
@@ -71,8 +84,7 @@ class CardGrid extends StatelessWidget{
                               'assets/cards/Values/propheted.png', 
                             )
                           )
-                        )
-                        ,
+                        ),
 
                         if(card.telescoped)
                         Animate(
@@ -94,44 +106,44 @@ class CardGrid extends StatelessWidget{
                             )
                           )
                         )
-                    ]
-                  )
-
-
-
+                      ]
+                    )
+                   
                 else if(card.state == CardState.selected)
-                Stack(
-                  children: <Widget>[
-                    Image.asset('assets/cards/Values/matched.png'),
-                    
-                    Image.asset(
-                      'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png', 
-                      fit: BoxFit.fitHeight ,
-                    ).animate().boxShadow(begin:BoxShadowEffect.neutralValue, duration: 100.milliseconds)
-                    ,
+                  Stack(
+                    children: <Widget>[
 
-                    if(card.modifiers!= Modifiers.Concealed)
-                        Positioned.fill(
-                        child: Align(
-                        alignment: Alignment.center,
-                        child:
-                        Transform.scale(
-                          scale: 0.75,
-                          child: (
+                      Image.asset('assets/cards/Values/matched.png'),
+
+                      Stack (children:<Widget>[
 
                         Image.asset(
-                            'assets/cards/Values/${card.spritePath}.png', 
-                            fit: BoxFit.fitWidth
+                        'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png', 
+                        fit: BoxFit.fitHeight ,
+                      ).animate().boxShadow(begin:BoxShadowEffect.neutralValue, duration: 100.milliseconds)
+                      ,
+                      if(card.modifiers!= Modifiers.Concealed)
+                          Positioned.fill(
+                          child: Align(
+                          alignment: Alignment.center,
+                          child:
+                          Transform.scale(
+                            scale: 0.75,
+                            child: (
+                  
+                              Image.asset(
+                                'assets/cards/Values/${card.spritePath}.png', 
+                                fit: BoxFit.fitWidth
+                              )
+                            )
                           )
                           )
-                          ,)
-                        )
-                        )
-                  ].animate().flipH(begin: 1.0, end:2.0,
-                  duration:100.milliseconds).slideY(duration: 100.milliseconds, begin:0, end: -0.3)
-                  
-                  
-                )
+                          )
+                          ].animate().flipH(begin: 1.0, end:2.0,
+                   duration:100.milliseconds).slideY(duration: 100.milliseconds, begin:0, end: -0.3)
+                          )
+                    ]
+                  )
 
                 else if(card.state == CardState.paired)
                 Image.asset(
@@ -139,6 +151,7 @@ class CardGrid extends StatelessWidget{
                   fit: BoxFit.fitWidth ,
                 )
             ],
+        )
         )
     )
     ;
