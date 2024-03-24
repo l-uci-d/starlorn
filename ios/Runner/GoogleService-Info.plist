@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDEwfS0UPXnmnPyO3SVlgx3N19y8bvftLE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>177582481994</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.starlorn</string>
+	<key>PROJECT_ID</key>
+	<string>starlorn-b41bf</string>
+	<key>STORAGE_BUCKET</key>
+	<string>starlorn-b41bf.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:177582481994:ios:83b1b7e04877dd2399bcb3</string>
+</dict>
+</plist>

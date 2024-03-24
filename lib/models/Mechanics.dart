@@ -1,23 +1,24 @@
 
 
-import 'package:starlorn/global/Globals.dart';
-
+import 'package:flutter/material.dart';
+import '../global/Globals.dart';
 import '../screens/play.dart';
+import '../widgets/AlertDialogs.dart';
 import 'Cards.dart';
 import 'dart:math';
 
 Random random = Random();
 class Game {
-  Game(this.cardAmt, this.unique) {
+  Game(this.cardAmt, this.unique, this.context) {
     generateCards();
   }
   final int cardAmt;
   final int unique;
-
-  List<Cards> cards = [];
+  BuildContext context;
+  List<CardsGame> cards = [];
   List<int> values = [];
   List<int> uniqueLeft =[];
-  List<Cards> forProphet = [];
+  List<CardsGame> forProphet = [];
   bool isGameOver = false;
   bool isGameWon = false;
   bool cascading = false;
@@ -41,17 +42,19 @@ class Game {
       uniqueLeft[index]+=1;
       
       final String path = '$cardValue';
-      final List<Cards> newCards = _createCards(path, cardValue);
+      final List<CardsGame> newCards = _createCards(path, cardValue);
+
       for(var card in newCards){
           int randomChance = Random().nextInt(100);
-        if (randomChance <= 35) {
+
+        if (randomChance < modChance) {
             int randomIndex = Random().nextInt(nonBaseModifiers.length);
             card.setModifier(nonBaseModifiers[randomIndex]);
             if(powerDowns.contains(card.modifiers))
               {
                 forProphet.add(card);
               }
-            print(card.modifiers);
+            
         }
       }
       cards.addAll(newCards);
@@ -63,10 +66,9 @@ class Game {
   }
   
 
-
-List<Cards> _createCards(String path, int cardValue) {
+List<CardsGame> _createCards(String path, int cardValue) {
     return List.generate(2,
-      (index) => Cards(
+      (index) => CardsGame(
         value: cardValue,
         spritePath: path,
       ),
@@ -77,17 +79,20 @@ List<Cards> _createCards(String path, int cardValue) {
 void onTapped(int index){
   bool isNotOasis = oasis == 0;
   cards[index].state = CardState.selected;
-  if(cascading){
-    cascade(cards[index]);
-    oasis+=1;
-  }
-    
+  
+  
     final List<int> visibleCardIndexes = _getCardIndexes(CardState.selected);
     print('Selected Cards: $visibleCardIndexes, value = ${cards[visibleCardIndexes.last].value}');
+
+    if(cascading && visibleCardIndexes.length == 1){
+      cascade(cards[index]);
+      oasis+=1;
+    }
+
     
-    if (visibleCardIndexes.length >=2) {
-      final Cards card1 = cards[visibleCardIndexes[0]];
-      final Cards card2 = cards[visibleCardIndexes[1]];
+    if (visibleCardIndexes.length % 2 == 0) {
+      final CardsGame card1 = cards[visibleCardIndexes[0]];
+      final CardsGame card2 = cards[visibleCardIndexes[1]];
       print('${card1.value} ${card1.modifiers}');
       print('${card2.value} ${card2.modifiers}');
 
@@ -96,11 +101,8 @@ void onTapped(int index){
       if (match) {
         Future.delayed(const Duration(milliseconds: 500), () {
 
-          isGameOver = _isGameOver();
-          isGameWon = _isGameWon();
-
           if(lastPair == card1.spritePath){
-            mult+=totalUnique;
+            mult*=2;
           }
 
           score += (100*mult);
@@ -114,6 +116,8 @@ void onTapped(int index){
           card2.state = CardState.paired;
           print('${card1.value}  ${values.indexOf(card1.value)}');
           _updateUniqueCount(card1.value);
+
+           _isGameDone();
 
         });
         
@@ -134,23 +138,16 @@ void onTapped(int index){
             print('card2 = ${card2.value} hidden');
           }
 
-          for (int i = 0; i < visibleCardIndexes.length; i++) {
-            if(cards[i].state != CardState.paired && cards[i].modifiers != Modifiers.Latch
-            && cards[i].state != CardState && i%2 == 1 && cards[i].state != CardState.hidden
-            )
-              {
-                cards[i].state = CardState.hidden;
-              print('${cards[i].value}  hidden late');
-              }
-          
-          }
+           _isGameDone();
+
         });
        
       }
     }
+   
   }
 
-  void Mods(Cards card1, Cards card2, bool match, bool isNotOasis){
+  void Mods(CardsGame card1, CardsGame card2, bool match, bool isNotOasis){
     
     Modifiers mod1 = card1.modifiers, mod2 = card2.modifiers;
 
@@ -159,7 +156,7 @@ void onTapped(int index){
     if(!match){
         if(mod1 == Modifiers.Telescope || mod2 == Modifiers.Telescope){
           
-          Cards telescopeCard = mod1 == Modifiers.Telescope ? card2 : card1;
+          CardsGame telescopeCard = mod1 == Modifiers.Telescope ? card2 : card1;
           print('telescoping ${telescopeCard.value}');
             List<int> telescopeIndexes = _getPairs(telescopeCard.value);
             print('TELESCOPE: $telescopeIndexes');
@@ -178,24 +175,25 @@ void onTapped(int index){
         }
 
         if((mod1 == Modifiers.Shuffler || mod2 == Modifiers.Shuffler) && isNotOasis){
-          Cards shuffler = mod1 == Modifiers.Shuffler ? card1 : card2;
+          CardsGame shuffler = mod1 == Modifiers.Shuffler ? card1 : card2;
           print('Shuffling ${shuffler.value}');
           
-            List<int> shuffle = _getCardIndexes(CardState.hidden);
-            shuffle.shuffle();
-            cards.add(cards[shuffle[0]]);
-              print('${cards.last.value} Added random card to list: ${cards[shuffle[0]].value}');
+          List<int> hiddenIndexes = _getCardIndexes(CardState.hidden);
 
-            cards[shuffle[0]] = shuffler;
-              print('Shuffler value: ${shuffler.value} Shuffled value: ${cards[shuffle[0]].value}');
+          if (hiddenIndexes.isNotEmpty) {
+            hiddenIndexes.shuffle(); 
+            int randomIndex = hiddenIndexes.first; 
+            
+            cards.add(cards[randomIndex]);
+            print('${cards.last.value} Added random card to list: ${cards[randomIndex].value}');
 
-            shuffler = cards.last;
-            print('Final value: ${shuffler.value} Final shuffled value: ${cards[shuffle[0]].value}');
-            cards.remove(cards.last);
+            cards[randomIndex] = shuffler;
+            print('Shuffler value: ${shuffler.value} Shuffled value: ${cards[randomIndex].value}');
+
+            cards.remove(shuffler);
+            print('Final value: ${shuffler.value} Final shuffled value: ${cards[randomIndex].value}');
+          }
         }
-
-
-        
 
         if((mod1 == Modifiers.Harbinger || mod2 == Modifiers.Harbinger) && isNotOasis){
           List<int> indices = _getUnspecialUnpaired();
@@ -209,7 +207,6 @@ void onTapped(int index){
           }
         }
     }
-
 
     else{
         attempts += (mod1 == Modifiers.Bounty ? 3 : 0) + (mod2 == Modifiers.Bounty ? 3 : 0);
@@ -246,7 +243,7 @@ void onTapped(int index){
       if(oasis > 0){
         oasis-=1;
         print('OASIS ACTIVE for $oasis TURNS');
-        }
+      }
   }
 
 
@@ -263,7 +260,7 @@ List<int> _getUnspecialUnpaired( ) {
     return cards
         .asMap()
         .entries
-        .where((entry) => entry.value.state == CardState.hidden
+        .where((entry) => entry.value.state != CardState.paired
         && !nonBaseModifiers.contains(entry.value.modifiers) 
         )
 
@@ -272,8 +269,8 @@ List<int> _getUnspecialUnpaired( ) {
   }
 
 
-  void cascade(Cards? card){
-      if(!cascading){
+  void cascade(CardsGame? card){
+      if(!cascading ){
           cascading = true;
           return;
       }
@@ -305,7 +302,6 @@ List<int> _getUnspecialUnpaired( ) {
         .toList();
   }
 
-  
 
   List<int> _getCardIndexes(CardState state) {
     return cards
@@ -316,18 +312,23 @@ List<int> _getUnspecialUnpaired( ) {
         .toList();
   }
 
+void _isGameDone() {
+  int flag = 0;
+  if (cards.every((card) => card.state == CardState.paired)) {
+    gameFin = 'game won';
+    flag = 1;
+  }
 
-  bool _isGameWon() {
-    return cards.every((card) => card.state == CardState.paired);
+  else if(attempts <= 0){
+    gameFin = 'game lost';
+    flag = 1;
+  }
+
+  if(flag == 1){
     
+    showGameFin(context);
   }
 
-bool _isGameOver(){
-  if (!isGameWon && attempts == 0) {
-    print('GameOVER');
-    return true;
-  }
-  return false;
 }
 
 }

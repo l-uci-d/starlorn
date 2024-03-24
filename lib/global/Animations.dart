@@ -71,15 +71,24 @@ class _FloatingWidgetState extends State<FloatingWidget>
 
 
 
+
 class BgAnim extends StatefulWidget {
   Widget? child;
-  BgAnim(this.child, {super.key});
+  String bg;
+
+  BgAnim(this.child, this.bg,
+  
+
+  {super.key});
   @override
-  _BgAnim createState() => _BgAnim();
+  _BgAnimState createState() => _BgAnimState();
+
 }
 
-class _BgAnim extends State<BgAnim> with SingleTickerProviderStateMixin {
+class _BgAnimState extends State<BgAnim> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  
+  get bg => bg;
 
   @override
   void initState() {
@@ -105,9 +114,9 @@ class _BgAnim extends State<BgAnim> with SingleTickerProviderStateMixin {
         double dy = math.cos(_controller.value * 2 * math.pi) * 25; 
 
         return Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/stars.png'),
+              image: AssetImage('assets/images/${widget.bg}.png'),
               fit: BoxFit.cover,
             ),
           ),

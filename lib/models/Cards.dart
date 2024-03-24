@@ -1,6 +1,8 @@
 
 // ignore_for_file: constant_identifier_names
 
+import 'dart:convert';
+
 enum CardState {hidden, paired, selected}
 
 enum Modifiers {Base, Latch, Concealed, Harbinger, Burden, 
@@ -14,20 +16,21 @@ Modifiers.Shuffler];
 
 
 
-class Cards{
+class CardsGame{
 
-  Cards({
+  CardsGame({
     required this.value,
     required this.spritePath,
     this.state = CardState.hidden,
     this.modifiers = Modifiers.Base,
     this.propheted = false,
     this.telescoped = false,
+    this.active = false
 
   }) {
     _updateModifierPath();
   }
-
+  bool active;
   final int value;
   CardState state;
   final String spritePath;
@@ -44,3 +47,22 @@ class Cards{
     _updateModifierPath();
   }
 }
+
+
+class CardsCollection {
+  CardsCollection({
+    required this.value,
+    required this.spritePath,
+    required this.modifierPath,
+    this.active = false,
+  });
+
+  bool active;
+  final int value;
+  final String modifierPath;
+  final String spritePath;
+
+
+}
+
+

@@ -21,7 +21,7 @@ class CardGrid extends StatelessWidget{
     super.key
   });
 
-  final Cards card;
+  final CardsGame card;
   final int index;
   final ValueChanged<int> onCardPressed;
 
@@ -155,5 +155,82 @@ class CardGrid extends StatelessWidget{
         )
     )
     ;
+  }
+}
+
+
+
+class CollectionGrid extends StatelessWidget{
+  const CollectionGrid({
+    required this.card,
+    required this.index,
+    required this.onCardPressed,
+
+
+    super.key
+  });
+
+  final CardsCollection card;
+  final int index;
+  final ValueChanged<int> onCardPressed;
+
+  void _handleCardTap() {
+    if (!card.active) {
+      Timer(const Duration(milliseconds: 100), () {
+        onCardPressed(index);
+      });
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    uiText = uiText.copyWith(fontSize: screenSize.width * 0.04, color: darkpurp) ;
+    
+    return InkWell(
+      onTap: _handleCardTap,
+      child: FloatingWidget(
+        seed: (math.Random().nextDouble() * 2.0) - 2.0,
+        duration: Duration(seconds: math.Random().nextInt(10) + 3),
+
+        child: Column(
+            children: <Widget>[
+                  Stack( alignment: Alignment.center,
+                    children: <Widget>[
+                        
+                        
+                        Image.asset(
+                        'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png',
+                          fit: BoxFit.fitHeight
+                        ).animate().boxShadow()
+                        ,
+                        Center(
+                          child:
+                            Image.asset(
+                              'assets/cards/Values/${card.spritePath}.png', 
+                              fit: BoxFit.contain
+                            )
+                            ,
+                        ),]),
+                        // Container(
+                          
+                        //   child:
+                        //   Column(children: [
+                        //   Text(
+                        //     'Greek Name: ${constellations[index]['greekName']}', style: homeText),
+                        //   Text(
+                        //     'Brightest Star: ${constellations[index]['brightestStar']}', style: homeText),
+                        //   Text(
+                        //     'Location: ${constellations[index]['location']}', style: homeText),
+                        //   ],)
+                        //   ),
+
+
+            
+        
+        ])
+    )
+    );
   }
 }
