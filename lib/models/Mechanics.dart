@@ -182,6 +182,7 @@ void onTapped(int index){
 
           if (hiddenIndexes.isNotEmpty) {
             hiddenIndexes.shuffle(); 
+            attempts+=2;
             int randomIndex = hiddenIndexes.first; 
             
             cards.add(cards[randomIndex]);
@@ -197,13 +198,16 @@ void onTapped(int index){
 
         if((mod1 == Modifiers.Harbinger || mod2 == Modifiers.Harbinger) && isNotOasis){
           List<int> indices = _getUnspecialUnpaired();
-          if(indices.isNotEmpty){
+          int randomIndex = Random().nextInt(powerDowns.length);
+          if(indices.isNotEmpty && indices.length > 1){
             indices.shuffle();
             print('Harbinging');
-            int randomIndex = Random().nextInt(powerDowns.length);
             cards[indices[0]].setModifier(powerDowns[randomIndex]);
             randomIndex = Random().nextInt(powerDowns.length);
             cards[indices[1]].setModifier(powerDowns[randomIndex]);
+          }
+          else if(indices.isNotEmpty){
+            cards[indices[0]].setModifier(powerDowns[randomIndex]);
           }
         }
     }

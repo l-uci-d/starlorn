@@ -3,7 +3,7 @@
     "index": "1",
     "Constellation": "Andromeda",
     "greekName": "Ἀνδρομέδα",
-    "englishName": "Princess",
+    "englishName": "The Princess",
     "brightestStar": "Alpheratz (Horse’s Navel)",
     "location": "Northern sky, one hour right ascension, 40° north declination"
   },
@@ -12,114 +12,114 @@
     "index": "2",
     "Constellation": "Aquarius",
     "greekName": "Ὑδροχόος",
-    "englishName": "Water-Bearer",
+    "englishName": "The Water-Bearer",
     "brightestStar": "Sadalsuud",
-    "Location": "southern sky, 20 to 23 hours right ascension and -10° to -30° south in declination"
+    "location": "southern sky, 20 to 23 hours right ascension and -10° to -30° south in declination"
   },
 
 {
     "index": "3",
     "Constellation": "Aquila",
     "greekName": "Ἀετός",
-    "englishName": "Eagle",
+    "englishName": "The Eagle",
     "brightestStar": "Altair",
-    "Location": "northern sky 19 to 20 hours right ascension and 0° to 30° north in declination"
+    "location": "northern sky 19 to 20 hours right ascension and 0° to 30° north in declination"
   },
   {
     "index": "4",
     "Constellation": "Ara",
     "greekName": "Ἄρα",
-    "englishName": "Ara",
+    "englishName": "The Altar",
     "brightestStar": "Beta Arae",
-    "Location": "southern sky, 16 to 18 hours right ascension and -45° to -70° south in declination"
+    "location": "southern sky, 16 to 18 hours right ascension and -45° to -70° south in declination"
   },
   {
     "index": "5",
     "Constellation": "Argo",
     "greekName": "Ἀργώ",
-    "englishName": "Argo Navis",
+    "englishName": "The Ship Argo",
     "brightestStar": "Varies",
-    "Location": "southern sky, 7 to 10 hours right ascension and -50° to -70° south in declination"
+    "location": "southern sky, 7 to 10 hours right ascension and -50° to -70° south in declination"
   },
   {
     "index": "6",
     "Constellation": "Aries",
     "greekName": "Κριός",
-    "englishName": "Ram",
+    "englishName": "The Ram",
     "brightestStar": "Hamal",
-    "Location": "northern sky, 2 to 3 hours right ascension and 10° to 30° north in declination"
+    "location": "northern sky, 2 to 3 hours right ascension and 10° to 30° north in declination"
   },
   {
     "index": "7",
     "Constellation": "Auriga",
     "greekName": "Ἡνίοχος",
-    "englishName": "Charioteer",
+    "englishName": "The Charioteer",
     "brightestStar": "Capella",
-    "Location": "northern sky, 6 to 7 hours right ascension and 40° north in declination"
+    "location": "northern sky, 6 to 7 hours right ascension and 40° north in declination"
   },
   {
     "index": "8",
     "Constellation": "Boötes",
     "greekName": "Βοώτης",
-    "englishName": "Herdsman/Ox Driver",
+    "englishName": "The Herdsman",
     "brightestStar": "Arcturus (Bear Watcher)",
-    "Location": "northern sky, at about 15 hours right ascension and 30° north in declination"
+    "location": "northern sky, at about 15 hours right ascension and 30° north in declination"
   },
   {
     "index": "9",
     "Constellation": "Cancer",
     "greekName": "Καρκίνος",
-    "englishName": "Crab",
+    "englishName": "The Crab",
     "brightestStar": "Al Tarf (The End)",
-    "Location": "northern sky between Leo and Gemini, at about 8 hours 25 minutes right ascension and 20° north declination"
+    "location": "northern, about 8 hours 25 minutes right ascension and 20° north declination"
   },
   {
     "index": "10",
     "Constellation": "Canis Major",
     "greekName": "Μεγάλος Κύων",
-    "englishName": "Great Dog",
+    "englishName": "The Great Dog",
     "brightestStar": "Sirius",
-    "Location": "southern sky, 6 to 9 hours right ascension and -20° to -40° south in declination"
+    "location": "southern sky, 6 to 9 hours right ascension and -20° to -40° south in declination"
   },
   {
     "index": "11",
     "Constellation": "Canis Minor",
     "greekName": "Προκύων",
-    "englishName": "Lesser Dog",
+    "englishName": "The Lesser Dog",
     "brightestStar": "Procyon",
-    "Location": "northern sky, at about 8 hours right ascension and 5° north in declination"
+    "location": "northern sky, at about 8 hours right ascension and 5° north in declination"
   },
   {
     "index": "12",
     "Constellation": "Capricornus",
     "greekName": "Αἰγόκερως",
-    "englishName": "Goat-Horned",
+    "englishName": "The Goat-Horned",
     "brightestStar": "Deneb Algedi (Kid’s Tail)",
-    "Location": "southern sky between Aquarius and Sagittarius, at about 21 hours right ascension and 20° south declination"
+    "location": "southern sky, 21 hours right ascension and 20° south declination"
   },
   {
     "index": "13",
     "Constellation": "Cassiopeia",
     "greekName": "Κασσιόπεια",
-    "englishName": "Cassiopeia",
+    "englishName": "The Seated Queen",
     "brightestStar": "Shedir",
-    "Location": "northern sky, 1 to 3 hours right ascension and 60° north in declination"
+    "location": "northern sky, 1 to 3 hours right ascension and 60° north in declination"
   },
   {
     "index": "14",
     "Constellation": "Centaurus",
     "greekName": "Κένταυρος",
-    "englishName": "Centaurus",
+    "englishName": "The Centaur",
     "brightestStar": "Rigil Kentaurus",
-    "Location": "southern sky, 12 to 15 hours right ascension and -25° to -60° south in declination"
+    "location": "southern sky, 12 to 15 hours right ascension and -25° to -60° south in declination"
   },
   {
     "index": "15",
     "Constellation": "Cepheus",
     "greekName": "Κηφεύς",
-    "englishName": "Cepheus",
+    "englishName": "The King",
     "brightestStar": "Alderamin",
-    "Location": "northern sky, at about 23 hours right ascension and 70° north in declination"
+    "location": "northern sky, at about 23 hours right ascension and 70° north in declination"
   },
   {
     "index": "16",
@@ -133,7 +133,7 @@
     "index": "17",
     "Constellation": "Corona Australis",
     "greekName": "Στέφανος νότιος",
-    "englishName": "Southern Crown",
+    "englishName": "The Southern Crown",
     "brightestStar": "Alphecca Australis",
     "location": "southern sky, at about 19 hours right ascension and 40° south in declination"
   },
@@ -141,7 +141,7 @@
     "index": "18",
     "constellation": "Corona Borealis",
     "greekName": "Στέφανος",
-    "englishName": "Northern Crown",
+    "englishName": "The Northern Crown",
     "brightestStar": "Alphecca",
     "location": "southern sky, at about 19 hours right ascension and 40 °south in declination"
   },
@@ -149,7 +149,7 @@
     "index": "19",
     "constellation": "Corvus",
     "greekName": "Κόραξ",
-    "englishName": "Raven",
+    "englishName": "The Raven",
     "brightestStar": "Gienah (Right wing of the Raven)",
     "location": "southern sky at about 12 hours right ascension and 20° south in declination"
   },
@@ -157,7 +157,7 @@
     "index": "20",
     "constellation": "Crater",
     "greekName": "Κρατήρ",
-    "englishName": "Crater",
+    "englishName": "The Crater",
     "brightestStar": "Alkes",
     "location": "southern sky, 10 to 12 hours right ascension and -10° to -25° south in declination"
   },
@@ -165,7 +165,7 @@
     "index": "21",
     "constellation": "Cygnus",
     "greekName": "Ὄρνις",
-    "englishName": "Swan",
+    "englishName": "The Swan",
     "brightestStar": "Deneb",
     "location": "northern sky, at about 21 hours right ascension and 40° north in declination"
   },
@@ -173,7 +173,7 @@
     "index": "22",
     "constellation": "Delphinus",
     "greekName": "Δελφίν",
-    "englishName": "Dolphin",
+    "englishName": "The Dolphin",
     "brightestStar": "Rotanev",
     "location": "northern sky, at about 21 hours right ascension and 10° north in declination"
   },
@@ -181,7 +181,7 @@
     "index": "23",
     "constellation": "Draco",
     "greekName": "Δράκων",
-    "englishName": "Serpent/Dragon",
+    "englishName": "The Dragon",
     "brightestStar": "Eltanin (Dragon’s Head)",
     "location": "northern sky at about 18 hours right ascension and 70 north in declination"
   },
@@ -189,7 +189,7 @@
     "index": "24",
     "constellation": "Equuleus",
     "greekName": "Ἵππος",
-    "englishName": "Horse",
+    "englishName": "The Horse",
     "brightestStar": "Kitalpha",
     "location": "northern sky, 21 to 22 hours right ascension and 0° to 10° north in declination"
   },
@@ -197,7 +197,7 @@
     "index": "25",
     "constellation": "Eridanus",
     "greekName": "Ἠριδανός",
-    "englishName": "Eridanus",
+    "englishName": "The River",
     "brightestStar": "Achernar",
     "location": "southern sky, 3 to 6 hours right ascension and 0° to -60° south in declination"
   },
@@ -205,7 +205,7 @@
     "index": "26",
     "constellation": "Gemini",
     "greekName": "Δίδυμοι",
-    "englishName": "Twins",
+    "englishName": "The Twins",
     "brightestStar": "Pollux",
     "location": "northern sky, 6 to 8 hours right ascension and 20° to 40° north in declination"
   },
@@ -213,7 +213,7 @@
     "index": "27",
     "constellation": "Herculus",
     "greekName": "Ἡρακλῆς",
-    "englishName": "Hercules",
+    "englishName": "The Hercules",
     "brightestStar": "Beta Herculis ‘Kornephorus’",
     "location": "northern sky at about 17 hours right ascension and 30° north in declination"
   },
@@ -221,15 +221,15 @@
     "index": "28",
     "constellation": "Hydra",
     "greekName": "Ὕδρα",
-    "englishName": "Water Snake",
+    "englishName": "The Water Snake",
     "brightestStar": "Alphard (The Solitary One)",
-    "location": "southern sky that stretches from 8 to 15 hours right ascension and from about 5° north to 30° south in declination"
+    "location": "southern sky, 8 to 15 hours right ascension and 5° north to 30° south in declination"
   },
   {
     "index": "29",
     "constellation": "Leo",
     "greekName": "Λέων",
-    "englishName": "Lion",
+    "englishName": "The Lion",
     "brightestStar": "Regulus",
     "location": "northern sky, a 9 to 12 hours right ascension and 0° to 30° north in declination"
   },
@@ -237,7 +237,7 @@
     "index": "30",
     "constellation": "Lepus",
     "greekName": "Θηρίον",
-    "englishName": "Hare",
+    "englishName": "The Hare",
     "brightestStar": "Arneb (The Hare)",
     "location": "southern sky at about 6 hours right ascension and 20° south in declination"
   },
@@ -245,7 +245,7 @@
     "index": "31",
     "constellation": "Libra",
     "greekName": "Ζυγός",
-    "englishName": "Scales",
+    "englishName": "The Scales",
     "brightestStar": "Zubenelgenubi",
     "location": "southern sky, 14 to 16 hours right ascension and 0° to -30° south in declination"
   },
@@ -253,7 +253,7 @@
     "index": "32",
     "constellation": "Lupus",
     "greekName": "Θηρίον",
-    "englishName": "Wolf",
+    "englishName": "The Wolf",
     "brightestStar": "Alpha Lupi",
     "location": "southern sky at about 15 hours right ascension and 40° south in declination"
   },
@@ -269,7 +269,7 @@
     "index": "34",
     "constellation": "Ophiuchus",
     "greekName": "Ὀφιοῦχος",
-    "englishName": "Serpent Bearer",
+    "englishName": "The Serpent Bearer",
     "brightestStar": "Rasalhague",
     "location": "17 hours right ascension and on the celestial equator in declination"
   },
@@ -277,15 +277,15 @@
     "index": "35",
     "constellation": "Orion",
     "greekName": "Ὠρίων",
-    "englishName": "Hunter",
+    "englishName": "The Hunter",
     "brightestStar": "Rigel",
-    "location": "5 hours 30 minutes right ascension and 0° declination, named for the Greek mythological hunter"
+    "location": "5 hours 30 minutes right ascension and 0° declination"
   },
   {
     "index": "36",
     "constellation": "Pegasus",
     "greekName": "Ἵππος",
-    "englishName": "Winged Horse",
+    "englishName": "The Winged Horse",
     "brightestStar": "Enif (The Nose)",
     "location": "northern sky at about 23 hours right ascension and 20° north in declination"
   },
@@ -301,15 +301,15 @@
     "index": "38",
     "constellation": "Pisces",
     "greekName": "Ἰχθύες",
-    "englishName": "Fishes",
+    "englishName": "The Fishes",
     "brightestStar": "Eta Piscium",
-    "location": "the northern sky between Aries and Aquarius, at about 1 hour right ascension and 15° north declination"
+    "location": "northern sky, about 1 hour right ascension and 15° north declination"
   },
   {
     "index": "39",
     "constellation": "Piscis Austrinus",
     "greekName": "Ἰχθύς",
-    "englishName": "Southern Fish",
+    "englishName": "The Southern Fish",
     "brightestStar": "Fomalhaut",
     "location": "southern sky, 21 to 23 hours right ascension and -20° to -35° south in declination"
   },
@@ -317,7 +317,7 @@
     "index": "40",
     "constellation": "Sagitta",
     "greekName": "Ὀιστός",
-    "englishName": "Arrow",
+    "englishName": "The Arrow",
     "brightestStar": "Gamma Sagittae",
     "location": "northern sky at about 20 hours right ascension and 20° north in declination"
   },
@@ -325,7 +325,7 @@
     "index": "41",
     "constellation": "Sagittarius",
     "greekName": "Τοξότης",
-    "englishName": "Archer",
+    "englishName": "The Archer",
     "brightestStar": "Kaus Australis",
     "location": "southern sky, 18 to 21 hours right ascension and 10° to -45° south in declination"
   },
@@ -333,15 +333,15 @@
     "index": "42",
     "constellation": "Scorpius",
     "greekName": "Σκορπίος",
-    "englishName": "Scorpion",
+    "englishName": "The Scorpion",
     "brightestStar": "Antares",
-    "location": "southern sky between Libra and Sagittarius, at about 16 hours 30 minutes right ascension and 30° south declination"
+    "location": "southern sky, about 16 hours 30 minutes right ascension and 30° south declination"
   },
   {
     "index": "43",
     "constellation": "Serpens",
     "greekName": "Ὄφις",
-    "englishName": "Serpent",
+    "englishName": "The Serpent",
     "brightestStar": "Unukalhai",
     "location": "northern sky, 15 to 18 hours right ascension and 0° to 20° north in declination"
   },
@@ -349,23 +349,23 @@
     "index": "44",
     "constellation": "Taurus",
     "greekName": "Ταῦρος",
-    "englishName": "Bull",
+    "englishName": "The Bull",
     "brightestStar": "Aldebaran (The Follower)",
-    "location": "northern sky between Aries and Gemini, at about 4 hours 20 minutes right ascension and 16° north declination"
+    "location": "northern sky, 4 hours 20 minutes right ascension and 16° north declination"
   },
   {
     "index": "45",
     "constellation": "Triangulum",
     "greekName": "Τρίγωνον",
-    "englishName": "Triangle",
+    "englishName": "The Triangle",
     "brightestStar": "Beta Trianguli",
-    "location": "northern sky at about 2 hours right ascension and 30° north in declination"
+    "location": "northern sky, 2 hours right ascension and 30° north in declination"
   },
   {
     "index": "46",
     "constellation": "Ursa Major",
     "greekName": "Ἄρκτος μεγάλη",
-    "englishName": "Great Bear",
+    "englishName": "The Great Bear",
     "brightestStar": "Alioth",
     "location": "northern sky, 10 hours right ascension, 60° north declination"
   },
@@ -373,17 +373,17 @@
     "index": "47",
     "constellation": "Ursa Minor",
     "greekName": "Ἄρκτος μικρά",
-    "englishName": "Little Bear",
+    "englishName": "The Little Bear",
     "brightestStar": "Polaris",
-    "location": "northern sky, at about 15 hours right ascension and 80° north declination"
+    "location": "northern sky, 15 hours right ascension and 80° north declination"
   },
   {
     "index": "48",
     "constellation": "Virgo",
     "greekName": "Παρθένος",
-    "englishName": "Virgin",
+    "englishName": "The Virgin",
     "brightestStar": "Spica (Head of Grain)",
-    "location": "southern sky between Leo and Libra, at about 13 hours right ascension and 2° south declination"
+    "location": "southern sky, at about 13 hours right ascension and 2° south declination"
   }
 
 ]

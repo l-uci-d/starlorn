@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:starlorn/main.dart';
 import 'package:starlorn/models/Cards.dart';
 import 'package:starlorn/screens/play.dart';
@@ -101,6 +102,7 @@ double aspectRatio = 0.0
 ;
 
 String gameFin = '';
+bool isEasy = false;
 
 void setEasy(){
   score = 0;
@@ -111,6 +113,7 @@ void setEasy(){
   rowCount = 4;
   totalUnique = 5;
   aspectRatio = 1.90; 
+  isEasy = true;
 }
 
 void setHard(){
@@ -122,4 +125,80 @@ void setHard(){
   rowCount = 6;
   totalUnique = 10;
   aspectRatio = 1.90; 
+  isEasy = false;
+}
+
+
+Future<void> setHighScoreEasy(int score, int mult, int time, int attepmts) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('scoreEasy', score);
+  await prefs.setInt('multEasy', mult);
+  await prefs.setInt('timeEasy', time);
+  await prefs.setInt('attepmtsEasy', attepmts);
+}
+
+Future<void> setHighScoreHard(int score, int mult, int time, int attepmts) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setInt('scoreHard', score);
+  await prefs.setInt('multHard', mult);
+  await prefs.setInt('timeHard', time);
+  await prefs.setInt('attepmtsHard', attepmts);
+}
+
+Future<int> getHighScoreHard() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('scoreHard') ?? 0;
+}
+
+Future<int> getHighScoreEasy() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('scoreEasy') ?? 0;
+}
+
+class HighScoresWidget extends StatelessWidget {
+HighScoresWidget(this.isEasy, {super.key});
+
+
+  bool isEasy;
+  @override
+  Widget build(BuildContext context) {
+
+
+    if(isEasy)
+    {return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        FutureBuilder<int>(
+          future: getHighScoreEasy(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              int highScoreEasy = snapshot.data!;
+              return Text('$highScoreEasy', style: homeSubText);
+            }
+          },
+        ),
+    ]);}
+    else
+        {return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        FutureBuilder<int>(
+          future: getHighScoreHard(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              int highScoreHard = snapshot.data!;
+              return Text('$highScoreHard', style: homeSubText);
+            }
+          },
+        ),
+    ]);}
+  }
 }

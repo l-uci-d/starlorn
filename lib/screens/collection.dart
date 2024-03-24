@@ -98,7 +98,7 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                                 onPressed: () {
                                   //SET STATES
                                 }, 
-                                child: Text('Leaderboard', style: homeSubText),
+                                child: Text('Cards', style: homeSubText),
                                 )
                               )
                               ,
@@ -114,27 +114,11 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                                 onPressed: () {
                                   //SET STATES
                                 }, 
-                                child: Text('Cards', style: homeSubText),
+                                child: Text('Leaderboard', style: homeSubText),
                                 )
                               )
                               ,
                             ),
-                            // Expanded (child: FloatingWidget(
-                            //   seed: (math.Random().nextDouble() * 2.0) - 2.0,
-                            //   duration: Duration(seconds: math.Random().nextInt(10) + 5),
-                            //   child: 
-                            //   TextButton(
-                            //     style: TextButton.styleFrom(
-                            //       backgroundColor: darkpurp, 
-                            //     ),
-                            //     onPressed: () {
-                            //       //SET STATES
-                            //     }, 
-                            //     child: Text('Modifiers', style: homeSubText),
-                            //     )
-                            //   )
-                            //   ,
-                            // ),
                           ],
                         ),
 
@@ -143,14 +127,14 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                         Container( 
                           height: screenSize.height * 0.8,
                           padding: const EdgeInsets.all(15),
-                          child: SingleChildScrollView(child: 
+                          child: 
                         GridView.count(
                             physics: const AlwaysScrollableScrollPhysics(),
                               shrinkWrap: true,
                               crossAxisCount: 2,
                               crossAxisSpacing: 15.0,
                               mainAxisSpacing: 15,
-                              childAspectRatio: screenSize.aspectRatio * 2,
+                              childAspectRatio: 0.35,
                               children: 
                               List.generate(collection.CollectionCards.length, (index) {
                                 return CollectionGrid(
@@ -160,7 +144,7 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                                 );
                               } )
                             ).animate().fade(duration: .5.seconds, curve: Curves.easeOut).slideY(),
-                        ),
+                        
                     ),
 
                           const Spacer()

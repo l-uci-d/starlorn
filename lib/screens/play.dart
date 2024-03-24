@@ -64,7 +64,7 @@ class PlayStageState extends State<PlayStage> {
   Widget build(BuildContext context) {
 
     Size screenSize = MediaQuery.of(context).size;
-    uiText = uiText.copyWith(fontSize: screenSize.width * 0.045);
+    uiText = uiText.copyWith(fontSize: screenSize.width * 0.045, color: whiteish);
     headerTextWhite = headerTextWhite.copyWith(fontSize: screenSize.width * 0.1);
     subHeaderText = subHeaderText.copyWith(fontSize: screenSize.width * 0.07, color:whiteish);
 

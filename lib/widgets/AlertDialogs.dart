@@ -8,14 +8,18 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:starlorn/global/Globals.dart';
 import '../screens/play.dart';
 import 'dart:math';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+
 
 Future<void> showDifficulty(BuildContext context) async {
+
   Size screenSize = MediaQuery.of(context).size;
   homeSubText = homeSubText.copyWith(color: darkpurp);
   subHeaderText = subHeaderText.copyWith(fontSize: screenSize.width * 0.050);
     return showDialog<void>(
       context: context,
-      
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
@@ -69,7 +73,7 @@ Future<void> showDifficulty(BuildContext context) async {
                               Text('Unique: 5', style: homeSubText),
                               const Spacer(),
                               Text('High Score: ', style: homeSubText.copyWith(decoration: TextDecoration.underline)),
-                              Text('$highScoreEasy', style: homeSubText),
+                              HighScoresWidget(true)
                         ],),
 
                         const VerticalDivider(
@@ -91,7 +95,8 @@ Future<void> showDifficulty(BuildContext context) async {
                               Text('Unique Pairs: 10', style: homeSubText),
                               const Spacer(),
                               Text('High Score: ', style: homeSubText.copyWith(decoration: TextDecoration.underline)),
-                              Text('$highScoreHard', style: homeSubText),
+                              HighScoresWidget(!true)
+                              
                     
                         ],),
                     
@@ -225,14 +230,19 @@ Future<void> showPauseDialog(BuildContext context, VoidCallback onResume) async 
 
 
 Future<void> showGameFin(BuildContext context) async {
-  print(totalSeconds);
   Size screenSize = MediaQuery.of(context).size;
 
+  int highScore = await (isEasy ? getHighScoreEasy() : getHighScoreHard());
 
   int timeScore = 60 ~/ totalSeconds;
   int attemptScore = attempts > 0 ? (attempts * 1.25).floor() : (attempts ~/ 2);
   int finalMult = (mult + attemptScore + timeScore);
   int finalScore = score * finalMult;
+
+  if(highScore < finalScore){
+    isEasy? await setHighScoreEasy(finalScore, mult, timeScore, attemptScore) : 
+    await setHighScoreHard(finalScore, mult, timeScore, attemptScore);
+  }
 
 
     return showDialog<void>(
@@ -266,8 +276,6 @@ Future<void> showGameFin(BuildContext context) async {
                 ]
               ),
               
-            
-
             content:  SingleChildScrollView(
             child: ListBody(
               
@@ -288,11 +296,11 @@ Future<void> showGameFin(BuildContext context) async {
                                   const Spacer(),
                                   Text('$score * ($mult + $attempts + $timeScore)', style: uiText.copyWith(color: darkpurp)),
                                   Text('Total Score: $finalScore', style: uiText.copyWith(color: darkpurp)),
-                                  const Spacer(),
-                                  if(discoveryCount >1)
-                                  Text('New Discoveries: $discoveryCount', style: uiText.copyWith(color: darkpurp)) ,
-                                  
-                              ],),
+
+                                  if(highScore < score)
+                                    Text('New High Score!!', style: uiText.copyWith(color: magenta))
+                              ],
+                              ),
                     ],
                   ),
                   )

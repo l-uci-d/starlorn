@@ -190,47 +190,82 @@ class CollectionGrid extends StatelessWidget{
     
     return InkWell(
       onTap: _handleCardTap,
-      child: FloatingWidget(
-        seed: (math.Random().nextDouble() * 2.0) - 2.0,
-        duration: Duration(seconds: math.Random().nextInt(10) + 3),
-
+      
         child: Column(
             children: <Widget>[
-                  Stack( alignment: Alignment.center,
-                    children: <Widget>[
-                        
-                        
-                        Image.asset(
-                        'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png',
-                          fit: BoxFit.fitHeight
-                        ).animate().boxShadow()
-                        ,
-                        Center(
-                          child:
+                  Column(
+                    children: [
+                      FloatingWidget(
+        seed: (math.Random().nextDouble() * 2.0) - 2.0,
+        duration: Duration(seconds: math.Random().nextInt(10) + 3),
+        child:
+                      Stack(alignment: Alignment.center,
+                        children: <Widget>[
                             Image.asset(
-                              'assets/cards/Values/${card.spritePath}.png', 
+                            'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png',
                               fit: BoxFit.contain
-                            )
+                            ).animate().boxShadow()
                             ,
-                        ),]),
-                        // Container(
+                            Center(
+                              child:
+                              Transform.scale(scale: 0.75, child:
+                              Image.asset(
+                                  'assets/cards/Values/${card.spritePath}.png', 
+                                  fit: BoxFit.contain
+                                )
+                              )
+                                
+                                ,
+                            ),
+                            ]
+                            ),
+                      ),
+                            Container( 
                           
-                        //   child:
-                        //   Column(children: [
-                        //   Text(
-                        //     'Greek Name: ${constellations[index]['greekName']}', style: homeText),
-                        //   Text(
-                        //     'Brightest Star: ${constellations[index]['brightestStar']}', style: homeText),
-                        //   Text(
-                        //     'Location: ${constellations[index]['location']}', style: homeText),
-                        //   ],)
-                        //   ),
+                            child: 
+                            Column( 
+                              
+                              children: [
 
+                            Column(mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                '${constellations[index]['greekName']}', style: uiText),
+                              ],
+                              ),
+                              Column(mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                '${constellations[index]['englishName']}', style: uiText.copyWith(fontStyle: FontStyle.italic)),
+                                const Text(
+                                ''),
+                              ],
+                              ),
+                            Column(crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Brightest Star: ${constellations[index]['brightestStar']}', style: uiText),
+                                  const Text(
+                                ''),
+                              ],
+                            ),
+                            Column(crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Location: ${constellations[index]['location']}', style: uiText),
+                              ],
+                            ),
+                            ],
+                            
+                            )
+                            
+                            
+                          )
+                    ],
+                  ),
 
-            
-        
         ])
-    )
     );
+
   }
 }

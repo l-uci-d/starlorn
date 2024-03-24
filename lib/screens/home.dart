@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
     homeSubText = homeSubText.copyWith(fontSize: screenSize.width * 0.04,);
     headerTextWhite = headerTextWhite.copyWith(fontSize: screenSize.width * 0.13);
     headerTextPurp = headerTextPurp.copyWith(fontSize: screenSize.width * 0.10);
-    subHeaderText = subHeaderText.copyWith(fontSize: screenSize.width * 0.050, );
+    subHeaderText = subHeaderText.copyWith(fontSize: screenSize.width * 0.050,);
     subHeaderTextRed = subHeaderTextRed.copyWith(fontSize: screenSize.width * 0.050, );
 
 
