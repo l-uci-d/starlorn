@@ -51,20 +51,12 @@ class CardGrid extends StatelessWidget{
                     children: <Widget>[
                       
                         Image.asset('assets/cards/Values/matched.png').animate().boxShadow(),
-                        //Image.asset(
+                        Image.asset(
                         
-                         // 'assets/cards/Values/cardback.png', 
-                         // fit: BoxFit.contain
-                       // ),
-                        Image.asset(
-                        'assets/cards/Modifiers/${card.modifierPath.toString().split('.').last}.png',
-                         // 'assets/cards/Values/cardback.png', 
-                          fit: BoxFit.contain
-                        ),
-                        Image.asset(
-                                'assets/cards/Values/${card.spritePath}.png', 
-                                fit: BoxFit.fitWidth
-                              ),
+                         'assets/cards/Values/cardback.png', 
+                         fit: BoxFit.contain
+                       ),
+                        
 
                         if(card.propheted)
                         Animate(

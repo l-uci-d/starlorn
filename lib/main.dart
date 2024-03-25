@@ -14,15 +14,16 @@ import './screens/play.dart';
 
 import 'package:flutter/material.dart';
 
+import 'screens/leaderboards.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await loadJsonData();
 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-
+     await Firebase.initializeApp(
+ options: DefaultFirebaseOptions.currentPlatform);
+   
 runApp(const MyApp());
 }
 
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         '/play': (context) => const PlayStage(),
         '/manual': (context) => const UsefulMessage(),
         '/collection': (context) => const ProgressionGauge(),
+        '/leaderboard': (context) => const LeaderboardPage()
       },
     );
   }

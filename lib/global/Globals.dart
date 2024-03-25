@@ -149,6 +149,11 @@ Future<int> getHighScoreHard() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getInt('scoreHard') ?? 0;
 }
+Future<int> getMultHard() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('multHard') ?? 0;
+}
+
 
 Future<int> getHighScoreEasy() async {
   final prefs = await SharedPreferences.getInstance();

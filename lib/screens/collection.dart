@@ -19,30 +19,35 @@ class ProgressionGauge extends StatefulWidget {
 }
 
 
-class _ProgressionGauge extends State<ProgressionGauge> {
 
   late Collection collection;
   late Duration duration;
 
+
+
+class _ProgressionGauge extends State<ProgressionGauge> {
+
+
+
   @override
   void initState() {
       super.initState();         
-      gameFin = '';
       collection = Collection(context);     
                           
-
-
   }
 
 
   @override
   Widget build(BuildContext context) {
 
+    
+
     Size screenSize = MediaQuery.of(context).size;
     homeText = homeText.copyWith(fontSize: screenSize.width * 0.07, fontStyle: FontStyle.italic) ;
     headerTextWhite = headerTextWhite.copyWith(fontSize: screenSize.width * 0.13);
     uiText = uiText.copyWith(fontSize: screenSize.width * 0.04, color: darkpurp) ;
     homeSubText = homeSubText.copyWith(color: whiteish, fontSize: screenSize.width * 0.035,);
+    
 
     return MaterialApp(
       home: Scaffold(
@@ -70,7 +75,8 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                         Row(children: <Widget>[
                           TextButton(
                             style: TextButton.styleFrom(
-                              backgroundColor: darkpurp, 
+                              backgroundColor: darkpurp
+                              
                             ),
                             onPressed: () {
                               Navigator.of(context).popUntil(ModalRoute.withName('/'));
@@ -81,46 +87,11 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                           Center(child: Text('collection', style: headerTextPurp),
                           )
                           ),
-                        ],),
+                        ],
+                        ),
                         
                         const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Expanded (child: FloatingWidget(
-                              seed: (math.Random().nextDouble() * 2.0) - 2.0,
-                              duration: Duration(seconds: math.Random().nextInt(10) + 5),
-                              child: 
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: darkpurp, 
-                                ),
-                                onPressed: () {
-                                  //SET STATES
-                                }, 
-                                child: Text('Cards', style: homeSubText),
-                                )
-                              )
-                              ,
-                            ),
-                            Expanded (child: FloatingWidget(
-                              seed: (math.Random().nextDouble() * 2.0) - 2.0,
-                              duration: Duration(seconds: math.Random().nextInt(10) + 5),
-                              child: 
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  backgroundColor: darkpurp, 
-                                ),
-                                onPressed: () {
-                                  //SET STATES
-                                }, 
-                                child: Text('Leaderboard', style: homeSubText),
-                                )
-                              )
-                              ,
-                            ),
-                          ],
-                        ),
+                        
 
                         const Spacer(),
 
@@ -128,37 +99,36 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                           height: screenSize.height * 0.8,
                           padding: const EdgeInsets.all(15),
                           child: 
-                        GridView.count(
-                            physics: const AlwaysScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 15.0,
-                              mainAxisSpacing: 15,
-                              childAspectRatio: 0.35,
-                              children: 
+                            GridView.count(
+                                physics: const AlwaysScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 15.0,
+                                mainAxisSpacing: 15,
+                                childAspectRatio: 0.35,
+                                children: 
                               List.generate(collection.CollectionCards.length, (index) {
                                 return CollectionGrid(
                                   index: index,
                                   card: collection.CollectionCards[index],
                                   onCardPressed: collection.onTapped,
                                 );
-                              } )
-                            ).animate().fade(duration: .5.seconds, curve: Curves.easeOut).slideY(),
-                        
-                    ),
-
+                              } 
+                              )
+                            )
+                        ) ,
                           const Spacer()
-
-                      ],
+                        ],
+                      )
                     )
-                )
+                  )
+                ]
               )
-              ]
-          ))
-        )
-
-
-      
-      );
+            )
+          )
+        );
   }
 }
+
+
+

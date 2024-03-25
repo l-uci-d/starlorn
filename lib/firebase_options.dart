@@ -14,11 +14,7 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-/// 
-
-
 class DefaultFirebaseOptions {
-  
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       return web;
@@ -53,6 +49,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '177582481994',
     projectId: 'starlorn-b41bf',
     authDomain: 'starlorn-b41bf.firebaseapp.com',
+    databaseURL: 'https://starlorn-b41bf-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'starlorn-b41bf.appspot.com',
     measurementId: 'G-1E45XTK42C',
   );
@@ -62,6 +59,7 @@ class DefaultFirebaseOptions {
     appId: '1:177582481994:android:855ad42d54b0cd9299bcb3',
     messagingSenderId: '177582481994',
     projectId: 'starlorn-b41bf',
+    databaseURL: 'https://starlorn-b41bf-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'starlorn-b41bf.appspot.com',
   );
 
@@ -70,6 +68,7 @@ class DefaultFirebaseOptions {
     appId: '1:177582481994:ios:83b1b7e04877dd2399bcb3',
     messagingSenderId: '177582481994',
     projectId: 'starlorn-b41bf',
+    databaseURL: 'https://starlorn-b41bf-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'starlorn-b41bf.appspot.com',
     iosBundleId: 'com.example.starlorn',
   );
@@ -79,6 +78,7 @@ class DefaultFirebaseOptions {
     appId: '1:177582481994:ios:d06ab51ce1a3f12199bcb3',
     messagingSenderId: '177582481994',
     projectId: 'starlorn-b41bf',
+    databaseURL: 'https://starlorn-b41bf-default-rtdb.asia-southeast1.firebasedatabase.app',
     storageBucket: 'starlorn-b41bf.appspot.com',
     iosBundleId: 'com.example.starlorn.RunnerTests',
   );
