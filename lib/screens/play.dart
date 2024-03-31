@@ -245,7 +245,8 @@ class PlayStageState extends State<PlayStage> {
       gameFin = '';
       totalSeconds = 0;            
       uniquePairs = totalUnique;
-      game = Game(cardCount, totalUnique, context);                     
+      game = Game(cardCount, totalUnique, context);      
+      lastPair = '';               
 
     stopwatch = Stopwatch();
     _startTimer();

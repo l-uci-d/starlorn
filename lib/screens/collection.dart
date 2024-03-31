@@ -81,7 +81,7 @@ class _ProgressionGauge extends State<ProgressionGauge> {
                             onPressed: () {
                               Navigator.of(context).popUntil(ModalRoute.withName('/'));
                             }, 
-                            child: Text('<-', style: homeSubText),
+                            child: Text('←', style: homeSubText),
                           ),
                           Expanded(child: 
                           Center(child: Text('collection', style: headerTextPurp),

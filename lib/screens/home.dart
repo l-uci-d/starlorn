@@ -127,19 +127,19 @@ class _HomePageState extends State<HomePage> {
 
                   const SizedBox(height: spacerPadding),
 
-                // FloatingWidget(
-                //     seed: (math.Random().nextDouble() * 2.0) - 2.0,
-                //     duration: Duration(seconds: math.Random().nextInt(10) + 3),
-                //     child: TextButton(
-                //       style: TextButton.styleFrom(
-                //         backgroundColor: const Color.fromRGBO(255, 238, 217, 1), // Set the background color
-                //       ),
-                //       onPressed: () {
-                //         Navigator.pushNamed(context, '/leaderboard');
-                //       }, 
-                //       child: Text('Leaderboards', style: homeText),
-                //     ),
-                //   ),
+                FloatingWidget(
+                    seed: (math.Random().nextDouble() * 2.0) - 2.0,
+                    duration: Duration(seconds: math.Random().nextInt(10) + 3),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(255, 238, 217, 1), // Set the background color
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/leaderboard');
+                      }, 
+                      child: Text('Leaderboards', style: homeText),
+                    ),
+                  ),
 
                   const Spacer()
 

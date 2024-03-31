@@ -98,7 +98,7 @@ highScoreHard = 0,
 totalSeconds = 0
 ;
 
-double aspectRatio = 0.0
+double aspectRatio = 1.90
 ;
 
 String gameFin = '';
@@ -112,7 +112,6 @@ void setEasy(){
   modChance = 20;
   rowCount = 4;
   totalUnique = 5;
-  aspectRatio = 1.90; 
   isEasy = true;
 }
 
@@ -124,7 +123,6 @@ void setHard(){
   modChance = 35;
   rowCount = 6;
   totalUnique = 10;
-  aspectRatio = 1.90; 
   isEasy = false;
 }
 
@@ -158,6 +156,11 @@ Future<int> getMultHard() async {
 Future<int> getHighScoreEasy() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getInt('scoreEasy') ?? 0;
+}
+
+Future<int> getMultEasy() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getInt('multEasy') ?? 0;
 }
 
 class HighScoresWidget extends StatelessWidget {

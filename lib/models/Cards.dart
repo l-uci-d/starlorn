@@ -48,6 +48,38 @@ class CardsGame{
   }
 }
 
+class CardsManual{
+
+  CardsManual({
+    required this.value,
+    required this.spritePath,
+    this.state = CardState.selected,
+    this.modifiers = Modifiers.Base,
+    this.propheted = false,
+    this.telescoped = false,
+    this.active = false
+
+  }) {
+    _updateModifierPath();
+  }
+  bool active;
+  final int value;
+  CardState state;
+  final String spritePath;
+  Modifiers modifiers;
+  String modifierPath = '';
+  bool propheted;
+  bool telescoped;
+
+  void _updateModifierPath() {
+    modifierPath = modifiers.toString();
+  }
+  void setModifier(Modifiers newModifier) {
+    modifiers = newModifier;
+    _updateModifierPath();
+  }
+}
+
 
 class CardsCollection {
   CardsCollection({

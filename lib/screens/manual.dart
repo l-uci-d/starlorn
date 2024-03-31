@@ -1,6 +1,10 @@
+import 'dart:html';
+
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter/material.dart';
 import 'package:starlorn/global/Animations.dart';
+import 'package:starlorn/models/CardGrid.dart';
+import 'package:starlorn/models/Mechanics.dart';
 import '../global/Globals.dart';
 import 'dart:math' as math;
 
@@ -14,7 +18,13 @@ class UsefulMessage extends StatefulWidget {
 
 
 class _UsefulMessageState extends State<UsefulMessage> {
+late Game game;
+ @override
+    void initState() {
+        super.initState();         
+        game = Game(16, 5, context);                 
 
+    }
 
 
   @override
@@ -23,8 +33,8 @@ class _UsefulMessageState extends State<UsefulMessage> {
     Size screenSize = MediaQuery.of(context).size;
     homeText = homeText.copyWith(fontSize: screenSize.width * 0.07, fontStyle: FontStyle.italic) ;
     headerTextWhite = headerTextWhite.copyWith(fontSize: screenSize.width * 0.13);
-    homeSubText = homeSubText.copyWith(color: darkpurp, fontSize: screenSize.width *0.040);
-
+    homeSubText = homeSubText.copyWith(color: darkpurp, fontSize: screenSize.width *0.05);
+   
     return MaterialApp(
       home:Scaffold(
       body:         Container(
@@ -57,7 +67,7 @@ class _UsefulMessageState extends State<UsefulMessage> {
                               onPressed: () {
                                 Navigator.of(context).popUntil(ModalRoute.withName('/'));
                               }, 
-                              child: Text('<-', style: homeSubText.copyWith(color: whiteish)),
+                              child: Text('←', style: homeSubText.copyWith(color: whiteish)),
                             ),
                             Expanded(child: 
                             Center(child: Text('manual', style: headerTextPurp),
@@ -95,27 +105,39 @@ class _UsefulMessageState extends State<UsefulMessage> {
                             Text(' '
                             , style: homeSubText),
 
-                                    GridView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: 16, 
-                                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                        childAspectRatio: 195/276,
-                                        crossAxisCount: 4, 
-                                        crossAxisSpacing: 4.0, 
-                                        mainAxisSpacing: 4.0,
-                                      ),
-                                      itemBuilder: (BuildContext context, int index) {
-                                        return FloatingWidget(
-                                        seed: (math.Random().nextDouble() * 2.0) - 2.0,
-                                        duration: Duration(seconds: math.Random().nextInt(10) + 5),
-                                        child: 
-                                      Transform.scale(scale: 0.9, child: Image.asset(
-                                        'assets/cards/Values/cardback.png',
-                                         fit: BoxFit.fill,
-                                      ).animate().boxShadow())
-                                      );
-                                      },
-                                    ),
+                   Container(
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.only(top:screenSize.height*0.0095, bottom: screenSize.height*0.0095),
+                    padding: EdgeInsets.all(screenSize.width * 0.05),
+                    height: screenSize.height * .7,
+                    width: screenSize.width * .9,
+                    decoration: 
+                      const BoxDecoration(
+                      color: Color.fromRGBO(255, 238, 217, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      
+                    ),
+                      child: Center(
+                          child: (
+                          GridView.count(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            crossAxisCount: 4,
+                            scrollDirection: Axis.horizontal,
+                            childAspectRatio: aspectRatio,
+
+                            children: 
+                            List.generate(game.cards.length, (index) {
+                              return CardGrid(
+                                index: index,
+                                card: game.cards[index],
+                                onCardPressed: game.onTappedManual,
+                              );
+                            } )
+                          ).animate().fade(duration: .5.seconds, curve: Curves.easeOut).slideY()
+                        ),
+                      ),    
+                    ),
 
                             Text(' '
                             , style: homeSubText),

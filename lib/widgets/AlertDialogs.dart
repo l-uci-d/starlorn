@@ -228,6 +228,41 @@ Future<void> showPauseDialog(BuildContext context, VoidCallback onResume) async 
   );
 }
 
+bool scoreError = true;
+Future<void> showWarning(BuildContext context) async {
+  return showDialog<void>(
+    context: context,
+    barrierDismissible: false, 
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: darkpurp,
+        title:  Text('error', style: headerTextWhite),
+        content:  SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              if(scoreError)
+              Text('Data already exists.', style: uiText.copyWith(color: whiteish)),
+              if(scoreError)
+              Text('Please get higher score or change your name', style: uiText.copyWith(color: whiteish)),
+              if(!scoreError)
+              Text('Name can only contain >=10 characters', style: uiText.copyWith(color: whiteish)),
+            ],
+          ),
+        ),
+        actions: <Widget>[
+          TextButton(
+            child:  Text('Back',  style: uiText.copyWith(color: whiteish)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          
+        ],
+      );
+    },
+  );
+}
+
 
 Future<void> showGameFin(BuildContext context) async {
   Size screenSize = MediaQuery.of(context).size;

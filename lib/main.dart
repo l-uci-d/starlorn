@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         '/play': (context) => const PlayStage(),
         '/manual': (context) => const UsefulMessage(),
         '/collection': (context) => const ProgressionGauge(),
-        '/leaderboard': (context) => const LeaderboardPage()
+       '/leaderboard': (context) => const LeaderboardPage()
       },
     );
   }

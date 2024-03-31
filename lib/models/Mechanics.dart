@@ -74,7 +74,10 @@ List<CardsGame> _createCards(String path, int cardValue) {
       ),
     );
   }
-
+void onTappedManual(int index){
+  cards[index].state = CardState.selected;
+  
+}
 
 void onTapped(int index){
   bool isNotOasis = oasis == 0;
@@ -93,8 +96,7 @@ void onTapped(int index){
     if (visibleCardIndexes.length % 2 == 0) {
       final CardsGame card1 = cards[visibleCardIndexes[0]];
       final CardsGame card2 = cards[visibleCardIndexes[1]];
-      print('${card1.value} ${card1.modifiers}');
-      print('${card2.value} ${card2.modifiers}');
+
 
       bool match = card1.value == card2.value;
 
